@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Error: <%= error.toString() %></title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div>An error occurred</div>
+            <div>
+                <pre>
+                    <%= error.stack %>
+                </pre>
+            </div>
+        </div>
+    </body>
+</html>

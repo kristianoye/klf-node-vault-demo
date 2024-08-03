@@ -1,0 +1,32 @@
+{
+    "app":{
+        "di":{
+            "vault":{
+                "module":"./src/vault/vaultClient",
+                "lifeSpan": "Infinite"
+            }
+        }
+    },
+    "server": {
+        "port": 5555,
+        "ignoreCertErrors": true,
+        "cors": {},
+        "paths": {
+            "viewPathRoot": "views",
+            "sharedViews": ["views/shared"],
+            "staticContent": {
+                "/js/ui": "node_modules/jquery-ui/dist",
+                "/js": "./src/client/js",
+                "/css": "./src/client/css"
+            }
+        },
+        "viewEngines":["ejs"],
+        "viewExtensions": ["html"]
+    },
+    "vault": {
+        "clientSettings": {
+            "apiVersion": "v1",
+            "endpoint": "https://g99datavm2:8200"
+        }
+    }
+}
