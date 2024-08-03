@@ -346,15 +346,14 @@ class BaseController {
 
         for(const viewFile of viewList) {
             if (existsSync(viewFile)) {
-                this.viewLookupCache[view] = viewFile;
-                return { viewFile, viewList };
+                return (this.viewLookupCache[view] = { viewFile, viewList });
             }
         }
 
         if (throwIfNotFound)
             throw new ViewNotFoundError('No suitable view was found', viewList);
 
-        return { viewFile: '', viewList };
+        return (this.viewLookupCache[view] = { viewFile: '', viewList });
     }
 
     /**
