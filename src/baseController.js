@@ -98,16 +98,16 @@ class BaseController {
     }
 
     /**
-     * 
+     * Create an instance of the specified controller
      * @param {import('./application')} application The calling application
      * @param {string} controllerName The name of the controller to create
      * @param {express.Request} request 
      * @param {express.Response} response 
      */
-    static createController(application, controllerName, request, response) {
+    static async createController(application, controllerName, request, response) {
         if (controllerName in controllerTypes) {
             const settings = controllerTypes[controllerName],
-                dependencies = application.container.fill(settings.constructorParameters);
+                dependencies = await application.container.fill(settings.constructorParameters);
 
             let { controllerType } = settings,
                 instanceSettings = { ...settings, request, response, dependencies }
@@ -133,8 +133,8 @@ class BaseController {
      * @param {import('./application')} application
      */
     static async registerControllersAsync(application) {
-        const 
-            config = application.config, 
+        const
+            config = application.config,
             app = application.express;
 
         let controllerDir = path.resolve(config.rootDirectory, config.getValue('server.controllerDirectory', 'controllers')),
@@ -143,14 +143,14 @@ class BaseController {
                 .map(f => path.join(controllerDir, f)),
             parseMethodName = /(?<verb>(get|post|head|delete|put|connect|trace|patch))(?<path>.*)/;
 
-        for(const controllerFile of controllerFiles) {
-            const 
+        for (const controllerFile of controllerFiles) {
+            const
                 controllerType = require(controllerFile),
                 router = express.Router(),
                 pathPrefix = controllerType.pathPrefix || false,
                 controllerName = controllerType.name.slice(0, controllerType.name.indexOf('Controller')).toLowerCase();
             let
-                viewSearchPath = [ path.resolve(`${config.getValue('server.paths.viewPathRoot', 'views')}`, controllerName) ]
+                viewSearchPath = [path.resolve(`${config.getValue('server.paths.viewPathRoot', 'views')}`, controllerName)]
                     .concat(config.getValue('server.paths.sharedViews', [])
                         .map(p => path.resolve(config.rootDirectory, p)));
             const
@@ -197,7 +197,7 @@ class BaseController {
                                     }
                                     return p.trim();
                                 });
-                            return parameters;
+                        return parameters;
                     }
                     let desc = descriptors[name];
                     if (typeof desc.value === 'function') {
@@ -244,28 +244,28 @@ class BaseController {
                     }
                     return false;
                 })
-                .filter(r => r !== false)
-                .sort((a, b) => {
-                    if (a.ranking < b.ranking)
-                        return -1;
-                    else if (a.ranking > b.ranking)
-                        return 1;
-                    else
-                        return a.name.localeCompare(b);
-                });
+                    .filter(r => r !== false)
+                    .sort((a, b) => {
+                        if (a.ranking < b.ranking)
+                            return -1;
+                        else if (a.ranking > b.ranking)
+                            return 1;
+                        else
+                            return a.name.localeCompare(b);
+                    });
 
                 sortedRoutes.forEach(route => {
-                    controllerType.prototype[route.name].defaultView = route.defaultView; 
-                    router[route.verb].call(router, route.urlPath, 
+                    controllerType.prototype[route.name].defaultView = route.defaultView;
+                    router[route.verb].call(router, route.urlPath,
                         /**
                          * @param {express.Request} request The incomming request message
                          * @param {express.Response} response The response to send back to the client.
                          */
                         async (request, response) => {
                             try {
-                                const 
+                                const
                                     /** Create new controller for request, pass settings, and DI requirements @type {BaseController} */
-                                    controller = BaseController.createController(application, controllerName, request, response),
+                                    controller = await BaseController.createController(application, controllerName, request, response),
                                     /** Fill the parameters with their respective values @type {string[]} */
                                     parameterList = route.parameters.map(p => {
                                         if (p in request.params)
@@ -274,9 +274,9 @@ class BaseController {
                                             return request.body[p];
                                     });
 
-                                await controller[route.name].apply(controller, parameterList); 
+                                await controller[route.name].apply(controller, parameterList);
                             }
-                            catch(err) {
+                            catch (err) {
                                 application.handleError(request, response, err);
                             }
                         });
@@ -289,7 +289,7 @@ class BaseController {
                 app.use(pathPrefix, router);
             else
                 app.use(router);
-            }
+        }
 
 
         app.get('/', (req, res) => {
@@ -311,7 +311,7 @@ class BaseController {
         if (!view) {
             //  Expensive, but fun
 
-            let 
+            let
                 stack = this.application.constructor.getStack(),
                 proto = this.constructor.prototype,
                 actionIndex = stack.findIndex(f => {
@@ -328,7 +328,7 @@ class BaseController {
             return this.viewLookupCache[view];
         }
 
-        let 
+        let
             filePart = view.slice(view.lastIndexOf('/') + 1),
             fileParts = filePart.split('.'),
             existingExtension = fileParts.length > 1 && fileParts.pop(),
@@ -344,7 +344,7 @@ class BaseController {
             return viewExtensions.map(e => `${fn}${(e.charAt(0) === '.' ? e : '.' + e)}`);
         });
 
-        for(const viewFile of viewList) {
+        for (const viewFile of viewList) {
             if (existsSync(viewFile)) {
                 return (this.viewLookupCache[view] = { viewFile, viewList });
             }

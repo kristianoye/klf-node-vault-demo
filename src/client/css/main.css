@@ -1,6 +1,36 @@
+body {
+  margin-top: 25px;
+}
 body div.app-tab {
   border-radius: 5px;
   border-color: lightsteelblue;
   border-style: solid;
   border-width: 1px;
+  height: 500px;
+}
+body div.app-tab .app-normal-ol {
+  list-style: decimal;
+  padding-left: 45px;
+}
+body div.app-tab .app-login {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body div.app-tab .app-login .app-login-box {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 25px;
+  height: 250px;
+  width: 50%;
+}
+body div.app-tab .app-login .app-login-box label {
+  padding-top: 8px;
+}
+body div.app-tab .app-login .app-login-box div.row ~ div.row {
+  margin-top: 20px;
+}
+body div.app-tab .app-login.authenticated {
+  display: none;
 }

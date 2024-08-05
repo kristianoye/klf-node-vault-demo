@@ -3,7 +3,7 @@
  * Written by Kristian Oye
  * August 1, 2024
  */
-const 
+const
     BaseController = require('./baseController'),
     Configuration = require('./configuration'),
     { readFile } = require('node:fs/promises'),
@@ -24,14 +24,14 @@ class Application extends EventEmitter {
      * 
      * @param {ApplicationSettings} settings 
      */
-    constructor(settings = { rootDirectory: path.resolve(__dirname, '..')}) {
+    constructor(settings = { rootDirectory: '..' }) {
         super();
 
         /**
          * Path to the main configuration file
          * @type {string}
          */
-        this.#configFile = settings.configFile || path.resolve(settings.rootDirectory, 'klfserver.json');
+        this.#configFile = settings.configFile || path.resolve(__dirname, settings.rootDirectory, 'klfserver.json');
         this.#settings = settings;
 
         fs.watch(this.#configFile, async (changeType, filename) => {
@@ -59,6 +59,9 @@ class Application extends EventEmitter {
      */
     #configFile;
 
+    /**
+     * @type {DIContainer}
+     */
     #di;
 
     /** 
@@ -108,7 +111,7 @@ class Application extends EventEmitter {
     static getStack() {
         let orig = Error.prepareStackTrace;
         try {
-            Error.prepareStackTrace = function(_, stack) {
+            Error.prepareStackTrace = function (_, stack) {
                 return stack;
             };
             let err = new Error;
@@ -135,7 +138,7 @@ class Application extends EventEmitter {
      * Set which view engines we are willing to use
      */
     #initViewEngines() {
-        let 
+        let
             /** @type {string[]} */
             viewEngineList = this.config.getValue('server.viewEngines'),
             /** @type {string[]} */
@@ -163,9 +166,9 @@ class Application extends EventEmitter {
                     let partA = a.split(splitter),
                         partB = b.split(splitter);
 
-                    return partA.length > partB.length ? -1  
-                        : partB.length > partA.length ? 1 
-                        : a.localeCompare(b);
+                    return partA.length > partB.length ? -1
+                        : partB.length > partA.length ? 1
+                            : a.localeCompare(b);
                 });
 
         sortedKeys.forEach(clientDir => {
@@ -200,7 +203,8 @@ class Application extends EventEmitter {
         this.#config = new Configuration({ ...this.#settings, configFile: this.#configFile }, JSON.parse(configData));
         this.#app = express();
 
-        this.#di = new DIContainer(this.config, this.config.getValue('app.di', {}));
+        this.#di = new DIContainer(this, this.config.getValue('app.di', {}));
+        this.emit('initcontainer', { container: this.container, config: this.config });
         this.#initViewEngines();
         this.#mapStaticContent();
 

@@ -1,16 +1,49 @@
-
 /*
  *  Demo server entry point
  *  Written by Kristian Oye <kristianoye@gmail.com>
  */
-(async() => {
-    const 
+(async () => {
+    const
         Application = require('./src/application'),
-        path = require('node:path'),
+        { Lifespan } = require('./src/dicontainer'),
         settings = {
             rootDirectory: __dirname
         };
 
-    const app = new Application(settings);
+    const app = new Application(settings)
+        .on('initcontainer',
+            /**
+             * Initialize the DI container, let's set up the Vault client when requested
+             * @param {{ container: import('./src/dicontainer').DIContainer}} initData 
+             */
+            async ({ container } = initData) => {
+                container.register('vault', {
+                    module: '@node-vault',
+                    lifespan: Lifespan.Lifetime,
+                    builder: async (req) => {
+                        const
+                            endpointData = app.config.getValue('vault.clientSettings', false),
+                            loginClient = req.module(endpointData),
+                            roleData = process.env.VAULT_ROLE,
+                            role = JSON.parse(roleData),
+                            authInfo = await loginClient.approleLogin(role),
+                            authToken = authInfo.auth.client_token,
+                            settings = { ...endpointData, ...role, token: authToken },
+                            authorizedClient = req.module(settings);
+
+                        try {
+                            let result = await authorizedClient.read('kv/pechengo');
+                            console.log('good');
+                        }
+                        catch (e) {
+                            console.log('foo');
+                        }
+
+                        return authorizedClient;
+
+                    }
+                })
+            });
+
     await app.run();
 })();

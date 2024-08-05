@@ -1,43 +1,599 @@
 <html>
-    <head>
-        <title><%= pageTitle %></title>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css" />
-        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
-    </head>
-    <body>
-        <div class="container" id="PechangaRoot">
-            <div id="tabs">
-                <ul>
-                    <li><a href="#tab-overview">Overview</a></li>
-                    <li><a href="#tab-client">Client Login</a></li>
-                    <li><a href="#tab-admin">Admin</a></li>
-                </ul>
-                <div id="tab-overview" class="app-tab">
-                    This is a test
-                </div>
-                <div id="tab-client" class="app-tab">
 
+<head>
+    <title>
+        <%= pageTitle %>
+    </title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.pechanga.com/bundle/style.css?v=05e59fd0" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+</head>
+
+<body>
+    <header class="header-main">
+        <a class="header-link mobile" href="/" data-uw-rm-brl="PR" data-uw-original-href="https://www.pechanga.com/">
+            <img id="mobileLogo" src="https://www.pechanga.com/static/img/PCH_Logo.png"
+                alt="Pechanga Resort &amp; Casino" data-uw-rm-alt-original="Pechanga Resort &amp; Casino"
+                data-uw-rm-alt="ALT">
+        </a>
+        <a class="header-link desktop" href="/" data-uw-rm-brl="PR" data-uw-original-href="https://www.pechanga.com/">
+            <img src="https://www.pechanga.com/static/img/PCH_Logo_Desktop.png" alt="Pechanga Resort &amp; Casino"
+                data-uw-rm-alt-original="Pechanga Resort &amp; Casino" data-uw-rm-alt="ALT">
+        </a>
+        <div class="toggle-nav" id="toggle-nav">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </div>
+        <nav role="navigation">
+            <ul class="nav-utility">
+                <li>
+                    <a class="icon-bed" target="_blank"
+                        href="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms"
+                        data-uw-rm-brl="PR"
+                        data-uw-original-href="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms"
+                        aria-label="Book a Room - open in a new tab" data-uw-rm-ext-link=""
+                        uw-rm-external-link-id="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms$bookaroom">
+                        Book a Room
+                    </a>
+                </li>
+
+                <li>
+                    <a class="icon-spade-icon bbnav" href="/best-bet-casino" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/best-bet-casino">Best Bet Casino App</a>
+                </li>
+                <li>
+                    <a class="icon-bubble" href="/property-map" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/property-map">Property Map</a>
+                </li>
+            </ul>
+            <div id="myAccountMenu" class="flyout-menu icon-caret-down nav-account is-mobile">
+                <strong class="heading icon-guy">My Account</strong>
+                <ul class="flyout">
+
+                    <li>
+                        <a target="_blank"
+                            href="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms"
+                            data-uw-rm-brl="PR"
+                            data-uw-original-href="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms"
+                            aria-label="Reservations - open in a new tab" data-uw-rm-ext-link=""
+                            uw-rm-external-link-id="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms$reservations">Reservations</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.ticketmaster.com/member?tm_link=tm_homeA_header_my_account"
+                            data-uw-rm-brl="PR"
+                            data-uw-original-href="https://www.ticketmaster.com/member?tm_link=tm_homeA_header_my_account"
+                            aria-label="Event Tickets - open in a new tab" data-uw-rm-ext-link=""
+                            uw-rm-external-link-id="https://www.ticketmaster.com/member?tm_link=tm_homea_header_my_account$eventtickets">Event
+                            Tickets</a>
+                    </li>
+                </ul>
+            </div>
+            <ul id="accordionMenu" class="accordion-list nav-main">
+
+                <li id="playMenu" class="accordion-item nav-group">
+                    <a class="trigger heading " href="/play" data-link="/play" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/play">Play</a>
+                    <div class="drawer">
+                        <ul class="nav-group-subnav">
+                            <li><a href="/play" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/play">Overview</a></li>
+                            <li><a href="/play/slots" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/play/slots">Slots</a></li>
+                            <li><a href="/play/table-games" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/play/table-games">Table Games</a>
+                            </li>
+                            <li><a href="/play/high-limit" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/play/high-limit">High Limit</a></li>
+                            <li><a href="/play/casino-hosts" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/play/casino-hosts">Casino Hosts</a>
+                            </li>
+                            <li><a href="/play/promotions" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/play/promotions">Promotions</a></li>
+
+                        </ul>
+                        <div class="nav-group-promos">
+                            <ul>
+                                <li class="promo">
+                                    <a href="/vote" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/vote">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/general/10-Best-Voting-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Vote for Pechanga </strong>
+                                            <p>Vote for Us</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </li>
+                <li id="stayMenu" class="accordion-item nav-group">
+                    <a class="heading " href="/stay" data-link="/stay" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/stay">Stay</a>
+                    <div class="drawer">
+                        <ul class="nav-group-subnav">
+                            <li>
+                                <a href="/stay" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/stay">Overview</a>
+                            </li>
+                            <li>
+                                <a href="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms"
+                                    target="_blank" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms"
+                                    aria-label="Book a Room - open in a new tab" data-uw-rm-ext-link=""
+                                    uw-rm-external-link-id="https://reservations.travelclick.com/131333?hotelid=131333#/guestsandrooms$bookaroom">Book
+                                    a Room</a>
+                            </li>
+                            <li>
+                                <a href="/rvresort" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/rvresort">RV Resort</a>
+                            </li>
+                            <li>
+                                <a href="/stay/packages" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/stay/packages">Resort Packages</a>
+                            </li>
+                        </ul>
+                        <div class="nav-group-promos">
+                            <ul>
+                                <li class="promo">
+                                    <a href="/vote" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/vote">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/general/10-Best-Voting-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Vote for Pechanga </strong>
+                                            <p>Vote for Us</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="promo">
+                                    <a href="/mypechanga#digital-room-key" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/mypechanga#digital-room-key">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads//assets/mypechanga/Digital-Key-Oct-2023_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Enjoy Convenience on Another Level</strong>
+                                            <p></p>
+                                            <p>New Digital Room Key!</p>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="promo">
+                                    <a href="/stay/packages/fun-in-the-sun-package" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/stay/packages/fun-in-the-sun-package">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/packages/2023/Fun-in-the-Sun-Photo-Sep-2023_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Fun in the Sun Hotel Package</strong>
+                                            <p></p>
+                                            <p>Make a splash mid-week with the Fun in the Sun resort package!</p>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- foo -->
+
+                    </div>
+                </li>
+                <li id="eatMenu" class="accordion-item nav-group">
+                    <a class="heading " data-link="/eat" href="/eat" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/eat">Eat</a>
+                    <div class="drawer">
+                        <ul class="nav-group-subnav">
+                            <li>
+                                <a href="/eat" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/eat">Overview</a>
+                            </li>
+                            <li>
+                                <a href="/eat/the-great-oak-steakhouse" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/eat/the-great-oak-steakhouse">The
+                                    Great Oak Steakhouse</a>
+                            </li>
+                            <li>
+                                <a href="/eat/umi-sushi-oyster-bar" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/eat/umi-sushi-oyster-bar">Umi Sushi
+                                    &amp; Oyster Bar</a>
+                            </li>
+                            <li>
+                                <a href="/eat/journeys-end" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/eat/journeys-end">Journey's End</a>
+                            </li>
+                            <li>
+                                <a href="/eat/kelseys" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/eat/kelseys">Kelsey's</a>
+                            </li>
+                            <li>
+                                <a href="/eat" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/eat">View All</a>
+                            </li>
+                        </ul>
+                        <div class="nav-group-promos">
+                            <ul>
+                                <li class="promo">
+                                    <a href="/vote" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/vote">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/general/10-Best-Voting-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Vote for Pechanga </strong>
+                                            <p>Vote for Us</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="promo">
+                                    <a href="/eat/the-great-oak-steakhouse" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/eat/the-great-oak-steakhouse">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/eat/great-oak/Great-Oak-Card-2023_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>The Great Oak Steakhouse</strong>
+                                            <p></p>
+                                            <p>Make a Date with Dining Perfection</p>
+                                            <p>200+ wines, hand-crafted cocktails, prime steaks</p>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="promo">
+                                    <a href="https://www.pechanga.com/eat/journeys-end#buffet" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/eat/journeys-end#buffet">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/eat/journeys-end/Journeys-Buffet-2023_560x315-V2.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Journey's End Buffet</strong>
+                                            <p></p>
+                                            <p>Join Us For Brunch Sundays<br role="presentation" data-uw-rm-sr="">
+                                                <b>A la Carte:</b> 7AM - 3PM<br role="presentation" data-uw-rm-sr="">
+                                                <b>Brunch Buffet:</b> 9AM - 2PM
+                                            </p>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </li>
+                <li id="entMenu" class="accordion-item nav-group">
+                    <a class="heading " data-link="/entertain" href="/entertain" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/entertain">Entertain</a>
+                    <div class="drawer">
+                        <ul class="nav-group-subnav">
+
+                            <li>
+                                <a href="/entertain" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/entertain">Events On Sale</a>
+                            </li>
+                            <li>
+                                <a href="/entertain/venues/the-comedy-club" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/entertain/venues/the-comedy-club">Live
+                                    At The Loft</a>
+                            </li>
+                            <li>
+                                <a href="/entertain/live-at-pechanga" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/entertain/live-at-pechanga">Live At
+                                    Pechanga</a>
+                            </li>
+                            <li>
+                                <a href="/entertain/venues" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/entertain/venues">All Venues</a>
+                            </li>
+                        </ul>
+                        <div class="nav-group-promos">
+                            <ul>
+                                <li class="promo">
+                                    <a href="/vote" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/vote">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/general/10-Best-Voting-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Vote for Pechanga </strong>
+                                            <p>Vote for Us</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="promo">
+                                    <a href="https://www.pechanga.com/entertain/tacos-tequila-festival"
+                                        data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/entertain/tacos-tequila-festival">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/entertainment/Tacos-and-Tequila-Sep-14-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Pechanga’s 2nd Annual Tacos &amp; Tequila Festival</strong>
+                                            <p></p>
+                                            <p>Saturday, September 14, 2024 • 1PM</p>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="promo">
+                                    <a href="/entertain/venues/the-comedy-club" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/entertain/venues/the-comedy-club">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/comedy-club/Live-At-The-Loft-Mar-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Live At The Loft</strong>
+                                            <p></p>
+                                            <p>The best standup comedy headliners in Southern California.</p>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </li>
+                <li id="indMenu" class="accordion-item nav-group">
+                    <a class="heading " data-link="/indulge" href="/indulge" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/indulge">Indulge</a>
+                    <div class="drawer">
+                        <ul class="nav-group-subnav">
+                            <li>
+                                <a href="/indulge" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/indulge">Overview</a>
+                            </li>
+                            <li>
+                                <a href="/indulge/journey" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/indulge/journey">Journey at
+                                    Pechanga</a>
+                            </li>
+                            <li>
+                                <a href="/indulge/spa" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/indulge/spa">Spa &amp; Fitness
+                                    Center</a>
+                            </li>
+                            <li>
+                                <a href="/indulge/attractions" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/indulge/attractions">Local
+                                    Attractions</a>
+                            </li>
+                            <li>
+                                <a href="/indulge/shops" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/indulge/shops">The Shops at
+                                    Pechanga</a>
+                            </li>
+                            <li>
+                                <a href="/indulge/the-cove" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/indulge/the-cove">The Cove</a>
+                            </li>
+                        </ul>
+                        <div class="nav-group-promos">
+                            <ul>
+                                <li class="promo">
+                                    <a href="/vote" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/vote">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/general/10-Best-Voting-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Vote for Pechanga </strong>
+                                            <p>Vote for Us</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="promo">
+                                    <a href="/stay/packages/fun-in-the-sun-package" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/stay/packages/fun-in-the-sun-package">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/packages/2023/Fun-in-the-Sun-Photo-Sep-2023_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Fun in the Sun Hotel Package</strong>
+                                            <p></p>
+                                            <p>Make a splash mid-week with the Fun in the Sun resort package!</p>
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </li>
+                <li id="meetMenu" class="accordion-item nav-group">
+                    <a class="heading " data-link="/meet" href="/meet" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/meet">Meet</a>
+                    <div class="drawer">
+                        <ul class="nav-group-subnav">
+                            <li>
+                                <a href="/meet" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/meet">Overview</a>
+                            </li>
+                            <li>
+                                <a href="/meet" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/meet">Meetings &amp; Events</a>
+                            </li>
+                            <li>
+                                <a href="/weddings" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/weddings">Weddings</a>
+                            </li>
+                            <li>
+                                <a href="/event-request-form" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/event-request-form">Book Your
+                                    Event</a>
+                            </li>
+                        </ul>
+                        <div class="nav-group-promos">
+                            <ul>
+                                <li class="promo">
+                                    <a href="/vote" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/vote">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/general/10-Best-Voting-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Vote for Pechanga </strong>
+                                            <p>Vote for Us</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </li>
+                <li id="joinMenu" class="accordion-item nav-group">
+                    <a class="heading " data-link="/join" href="/join" data-uw-rm-brl="PR"
+                        data-uw-original-href="https://www.pechanga.com/join">Join</a>
+                    <div class="drawer">
+                        <ul class="nav-group-subnav">
+                            <li><a href="/join" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/join">Overview</a></li>
+                            <li><a href="/join#benefits" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/join#benefits">Benefits</a></li>
+                            <li><a href="/join/apply" data-uw-rm-brl="PR"
+                                    data-uw-original-href="https://www.pechanga.com/join/apply">Apply Now</a></li>
+                        </ul>
+                        <div class="nav-group-promos">
+                            <ul>
+                                <li class="promo">
+                                    <a href="/vote" data-uw-rm-brl="PR"
+                                        data-uw-original-href="https://www.pechanga.com/vote">
+                                        <div class="image-thumb">
+                                            <div class="aspect-ratio"
+                                                style="background-image: url(/uploads/assets/general/10-Best-Voting-2024_560x315.webp);">
+                                            </div>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Vote for Pechanga </strong>
+                                            <p>Vote for Us</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </li>
+                <a id="bestBet" class="heading mypnav" href="/mypechanga" data-link="/mypechanga" data-uw-rm-brl="PR"
+                    data-uw-original-href="https://www.pechanga.com/mypechanga" aria-label="Open this option"
+                    data-uw-rm-empty-ctrl="">
+                </a>
+            </ul><a id="bestBet" class="heading mypnav" href="/mypechanga" data-link="/mypechanga" data-uw-rm-brl="PR"
+                data-uw-original-href="https://www.pechanga.com/mypechanga" aria-label="Open this option"
+                data-uw-rm-empty-ctrl="">
+
+            </a>
+
+        </nav>
+    </header>
+    <div class="container" id="PechangaRoot">
+        <div id="tabs">
+            <ul>
+                <li><a href="#tab-overview">Overview</a></li>
+                <li><a href="#tab-client">Client Login</a></li>
+                <li><a href="#tab-admin">Admin</a></li>
+            </ul>
+            <div id="tab-overview" class="app-tab">
+                <p>
+                    This simple little application is not supposed to look pretty. It is just
+                    a quick demonstration of combining NodeJS/Express and HashiCorp Vault.
+                </p>
+                <p>
+                    The UI is split into three sections:
+                <ol class="app-normal-ol">
+                    <li>This help page</li>
+                    <li>The client login tab which allows "users" to log in using credentials from Vault</li>
+                    <li>The admin tab which allows editing of the user data in Vault</li>
+                </ol>
+                </p>
+            </div>
+            <div id="tab-client" class="app-tab">
+                <div class="app-login">
+                    <div class="app-login-box">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="ClientUsername">Login ID</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="ClientUsername" name="ClientUsername">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="ClientPassword" class="form-check-label">Password</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control" id="ClientPassword" name="ClientPassword">
+                            </div>
+                        </div>
+                        <div class="row error-display">
+                            <div class="col-md-12">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 align-items-center">
+                                <button class="btn btn-primary">Log In</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="tab-admin" class="app-tab">
+            </div>
+            <div id="tab-admin" class="app-tab">
+                <div>
 
                 </div>
             </div>
         </div>
-    </body>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js" 
-        integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" 
-        crossorigin="anonymous"></script>        
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-    <script src="/js/webclient.js"></script>
-    <script>
-        $(document).ready(() => {
-            const client = new PechangaClient(document.getElementById('PechangaRoot'));
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"
+    integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+<script src="/js/webclient.js"></script>
+<script>
+    $(document).ready(() => {
+        const client = new PechangaClient(document.getElementById('PechangaRoot'));
 
-            client.render();
-        })
-    </script>
+        client.render();
+    })
+</script>
+
 </html>

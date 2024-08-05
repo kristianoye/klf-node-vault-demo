@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\index.js",
+            "env": {
+                "NODE_TLS_REJECT_UNAUTHORIZED": "0",
+                "VAULT_SKIP_VERIFY": "1",
+                "VAULT_ROLE": "{ \"role_id\": \"eac02609-4209-1868-c451-cf40fd92b9e2\", \"secret_id\": \"21dc15ed-c13b-f2a3-5a98-86a28f26d932\" }"
+            }
+        }
+    ]
+}

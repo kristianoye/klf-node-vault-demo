@@ -3,13 +3,12 @@
  * Written by Kristian Oye
  * August 1, 2024
  */
-const 
+const
     { readFile } = require('node:fs/promises'),
     path = require('node:path'),
     fs = require('node:fs'),
     EventEmitter = require('events').EventEmitter,
-    express = require('express'),
-    BaseController = require('./baseController');
+    express = require('express');
 
 class Configuration extends EventEmitter {
     /**
@@ -47,8 +46,10 @@ class Configuration extends EventEmitter {
 
     // #region Public Properties
 
+    // Read-only access
     get configFile() { return this.#configFile }
 
+    // Read-only access
     get rootDirectory() { return this.#rootDirectory }
 
     // #endregion
@@ -59,13 +60,13 @@ class Configuration extends EventEmitter {
      * @param {any} defaultValue A default value... if any
      * @returns 
      */
-    getValue(fullKey, defaultValue=undefined) {
+    getValue(fullKey, defaultValue = undefined) {
         let parts = fullKey.split('.').filter(s => s.length > 0),
             node = this.#configData;
 
-        for(let i=0, max=parts.length, lastIndex=max-1; i<max; i++) {
+        for (let i = 0, max = parts.length, lastIndex = max - 1; i < max; i++) {
             if (i === lastIndex) {
-                if (parts[i] in node) 
+                if (parts[i] in node)
                     return node[parts[i]];
                 else if (typeof defaultValue === 'undefined')
                     return defaultValue;
@@ -73,7 +74,7 @@ class Configuration extends EventEmitter {
                     return (node[parts[i]] = defaultValue);
             }
             else {
-                if (parts[i] in node) 
+                if (parts[i] in node)
                     node = node[parts[i]];
                 else
                     node = node[parts[i]] = {};
@@ -91,18 +92,33 @@ class Configuration extends EventEmitter {
         let parts = fullKey.split('.').filter(s => s.length > 0),
             node = this.#configData;
 
-        for(let i=0, max=parts.length, lastIndex=max-1; i<max; i++) {
+        for (let i = 0, max = parts.length, lastIndex = max - 1; i < max; i++) {
             if (i === lastIndex) {
                 node[parts[i]] = value;
             }
             else {
-                if (parts[i] in node) 
+                if (parts[i] in node)
                     node = node[parts[i]];
                 else
                     node = node[parts[i]] = {};
             }
         }
         return this;
+    }
+
+    /**
+     * Resolve a path relative to the app root
+     * @param {string} spec The path to resolve relative to the app root
+     * @returns 
+     */
+    resolvePath(spec) {
+        //  If the path starts with '@' then it is assumed to be a 
+        //  node module and the path should be not be resolved by
+        //  the config objects.  NOTE: Node packages starting with
+        //  '@' must then have two (e.g. '@@postman')
+        if (spec.startsWith('@'))
+            return spec.slice(1);
+        return path.resolve(this.rootDirectory, spec);
     }
 }
 

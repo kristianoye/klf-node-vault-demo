@@ -4,6 +4,7 @@
   "description": "Demonstrate using Vault in a NodeJS Express application",
   "main": "index.js",
   "scripts": {
+    "styles": "sass ./src/client/css/main.scss > ./src/client/css/main.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kristian Oye",

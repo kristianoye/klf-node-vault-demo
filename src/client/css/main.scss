@@ -1,8 +1,44 @@
 body {
+    margin-top: 25px;
+
     div.app-tab {
         border-radius: 5px;
         border-color: lightsteelblue;
         border-style: solid;
         border-width: 1px;
+        height: 500px;
+
+        .app-normal-ol {
+            list-style: decimal;
+            padding-left: 45px;
+        }
+
+        .app-login {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .app-login-box {
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                padding: 25px;
+                height: 250px;
+                width: 50%;
+
+                label {
+                    padding-top: 8px;
+                }
+
+                div.row~div.row {
+                    margin-top: 20px;
+                }
+            }
+
+            &.authenticated {
+                display: none;
+            }
+        }
+
     }
 }

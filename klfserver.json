@@ -1,11 +1,6 @@
 {
-    "app":{
-        "di":{
-            "vault":{
-                "module":"./src/vault/vaultClient",
-                "lifeSpan": "Infinite"
-            }
-        }
+    "app": {
+        "di": {}
     },
     "server": {
         "port": 5555,
@@ -13,15 +8,21 @@
         "cors": {},
         "paths": {
             "viewPathRoot": "views",
-            "sharedViews": ["views/shared"],
+            "sharedViews": [
+                "views/shared"
+            ],
             "staticContent": {
                 "/js/ui": "node_modules/jquery-ui/dist",
                 "/js": "./src/client/js",
                 "/css": "./src/client/css"
             }
         },
-        "viewEngines":["ejs"],
-        "viewExtensions": ["html"]
+        "viewEngines": [
+            "ejs"
+        ],
+        "viewExtensions": [
+            "html"
+        ]
     },
     "vault": {
         "clientSettings": {
