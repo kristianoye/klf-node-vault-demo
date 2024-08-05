@@ -27,7 +27,7 @@
     "vault": {
         "clientSettings": {
             "apiVersion": "v1",
-            "endpoint": "https://g99datavm2:8200"
+            "endpoint": "http://g99datavm2:8200"
         }
     }
 }

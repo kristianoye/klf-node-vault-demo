@@ -4,10 +4,10 @@ const
 /**
  * Handle requests for the home page
  */
-class HomeController extends BaseController {
+class DefaultController extends BaseController {
     /**
      * @param {import('../src/baseController').ControllerSettings} settings Controller settings
-     * @param {import('../src/vault/vaultClient')} vault Injected vault client
+     * @param {import('node-vault').client} vault Injected vault client
      */
     constructor(settings, vault) {
         super(settings);
@@ -23,4 +23,4 @@ class HomeController extends BaseController {
     }
 }
 
-module.exports = HomeController;
+module.exports = DefaultController;

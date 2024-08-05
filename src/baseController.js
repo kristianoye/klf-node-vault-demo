@@ -135,10 +135,10 @@ class BaseController {
     static async registerControllersAsync(application) {
         const
             config = application.config,
-            app = application.express;
+            defaultController = config.getValue('server.defaultController', 'default');
 
         let controllerDir = path.resolve(config.rootDirectory, config.getValue('server.controllerDirectory', 'controllers')),
-            controllerFiles = (await readdir(controllerDir))
+            controllerFiles = (await readdir(controllerDir, { recursive: true }))
                 .filter(f => f.indexOf('Controller') > -1)
                 .map(f => path.join(controllerDir, f)),
             parseMethodName = /(?<verb>(get|post|head|delete|put|connect|trace|patch))(?<path>.*)/;
@@ -147,12 +147,19 @@ class BaseController {
             const
                 controllerType = require(controllerFile),
                 router = express.Router(),
-                pathPrefix = controllerType.pathPrefix || false,
                 controllerName = controllerType.name.slice(0, controllerType.name.indexOf('Controller')).toLowerCase();
             let
+                pathPrefix = controllerType.pathPrefix || false,
                 viewSearchPath = [path.resolve(`${config.getValue('server.paths.viewPathRoot', 'views')}`, controllerName)]
                     .concat(config.getValue('server.paths.sharedViews', [])
                         .map(p => path.resolve(config.rootDirectory, p)));
+
+            if (!pathPrefix) {
+                let pathPart = controllerFile.slice(controllerDir.length),
+                    pathPosix = pathPart.split(path.sep).slice(0, -1).join(path.posix.sep) + '/' + controllerName;
+                pathPrefix = pathPosix;
+            }
+
             const
                 controllerSettings = {
                     application,
@@ -278,6 +285,7 @@ class BaseController {
                             }
                             catch (err) {
                                 application.handleError(request, response, err);
+                                console.log(err);
                             }
                         });
                 });
@@ -285,7 +293,7 @@ class BaseController {
 
             BaseController.addControllerType(controllerSettings);
 
-            if (pathPrefix)
+            if (pathPrefix && controllerName !== defaultController)
                 application.use(pathPrefix, router);
             else
                 application.use(router);

@@ -184,11 +184,10 @@ class Application extends EventEmitter {
      */
     #proxyExpress() {
         const descriptors = Object.getOwnPropertyDescriptors(this.#app),
-            existing = Object.getOwnPropertyDescriptors(this),
             getInstance = () => this.#app;
 
         for (const [name, desc] of Object.entries(descriptors)) {
-            if (false === name in existing) {
+            if (false === name in this) {
                 if (typeof desc.value === 'function') {
                     Object.defineProperty(this, name, {
                         value: function (...args) {
@@ -235,7 +234,6 @@ class Application extends EventEmitter {
                 }
             }
         }
-        console.log(descriptors, existing);
     }
 
     /** 

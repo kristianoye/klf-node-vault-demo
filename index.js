@@ -29,15 +29,8 @@
                             authInfo = await loginClient.approleLogin(role),
                             authToken = authInfo.auth.client_token,
                             settings = { ...endpointData, ...role, token: authToken },
+                            /** @type {import('node-vault').client} */
                             authorizedClient = req.module(settings);
-
-                        try {
-                            let result = await authorizedClient.read('kv/pechengo');
-                            console.log('good');
-                        }
-                        catch (e) {
-                            console.log('foo');
-                        }
 
                         return authorizedClient;
 
