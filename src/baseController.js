@@ -166,7 +166,7 @@ class BaseController {
 
 
             if (typeof controllerType.registerRoutes === 'function')
-                controllerType.registerRoutes(app, router);
+                controllerType.registerRoutes(application, router);
             else {
                 /**
                  * Autowire "by convention" steps: 
@@ -286,13 +286,13 @@ class BaseController {
             BaseController.addControllerType(controllerSettings);
 
             if (pathPrefix)
-                app.use(pathPrefix, router);
+                application.use(pathPrefix, router);
             else
-                app.use(router);
+                application.use(router);
         }
 
 
-        app.get('/', (req, res) => {
+        application.get('/', (req, res) => {
             res.sendStatus(404);
         });
     }

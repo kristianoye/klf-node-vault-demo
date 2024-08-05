@@ -104,6 +104,8 @@ class Application extends EventEmitter {
 
     // #endregion
 
+    //#region Methods
+
     /**
      * Get the current stack as a queryable structure
      * @returns 
@@ -177,6 +179,65 @@ class Application extends EventEmitter {
         });
     }
 
+    /**
+     * Set this application up as a proxy for Express... just for fun
+     */
+    #proxyExpress() {
+        const descriptors = Object.getOwnPropertyDescriptors(this.#app),
+            existing = Object.getOwnPropertyDescriptors(this),
+            getInstance = () => this.#app;
+
+        for (const [name, desc] of Object.entries(descriptors)) {
+            if (false === name in existing) {
+                if (typeof desc.value === 'function') {
+                    Object.defineProperty(this, name, {
+                        value: function (...args) {
+                            const instance = getInstance();
+                            return instance[name].apply(instance, args);
+                        },
+                        enumerable: true,
+                        configurable: false,
+                        writable: false
+                    });
+                }
+                else if (typeof desc.value !== 'undefined') {
+                    Object.defineProperty(this, name, {
+                        value: function (...args) {
+                            const instance = getInstance();
+                            return instance[name];
+                        },
+                        enumerable: true,
+                        configurable: false,
+                        writable: false
+                    });
+                }
+                else if (desc.get || desc.set) {
+                    Object.defineProperty(this, name, {
+                        get: function () {
+                            const instance = getInstance();
+                            return desc?.get?.apply(instance) ?? undefined;
+                        },
+                        set: function (arg) {
+                            const instance = getInstance();
+                            if (desc.set)
+                                desc.set.apply(instance, arg);
+                            else {
+                                //  This will throw an error
+                                instance[name] = arg;
+                            }
+                        },
+                        enumerable: true,
+                        configurable: false
+                    });
+                }
+                else {
+                    console.log('woo');
+                }
+            }
+        }
+        console.log(descriptors, existing);
+    }
+
     /** 
      * Run the application 
      * ```
@@ -202,6 +263,7 @@ class Application extends EventEmitter {
         let configData = await readFile(this.#configFile);
         this.#config = new Configuration({ ...this.#settings, configFile: this.#configFile }, JSON.parse(configData));
         this.#app = express();
+        this.#proxyExpress();
 
         this.#di = new DIContainer(this, this.config.getValue('app.di', {}));
         this.emit('initcontainer', { container: this.container, config: this.config });
@@ -225,6 +287,8 @@ class Application extends EventEmitter {
         this.#lastReload = Date.now();
         this.#server = this.#app.listen(this.config.getValue('server.port'));
     }
+
+    //#endregion
 }
 
 module.exports = Application;
